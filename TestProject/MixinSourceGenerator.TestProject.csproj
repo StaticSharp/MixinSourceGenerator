@@ -7,8 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Generator\MixinSourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
-  </ItemGroup>
-    
+	<ItemGroup>
+		<ProjectReference Include="..\Attributes\MixinSourceGenerator.Attributes.csproj" />
+		<ProjectReference Include="..\Generator\MixinSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+	</ItemGroup>
+
 </Project>
