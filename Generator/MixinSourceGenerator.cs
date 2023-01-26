@@ -1,42 +1,16 @@
-﻿using Exo.CSharpSyntaxTreeInspector;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scopes.C;
 using System;
 using System.Collections.Generic;
-
-//using SourceGeneratorHelpers;
-
-
-using System.Collections.Immutable;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MixinSourceGenerator
 {
-
-    static class RefKindStatic
-    {
-        public static string ToParameterPrefix(this RefKind kind)
-        {
-            switch (kind)
-            {
-                case RefKind.Out: return "out ";
-                case RefKind.Ref: return "ref ";
-                case RefKind.In: return "in ";
-                case RefKind.None: return string.Empty;
-                default: return string.Empty;
-            }
-        }
-    }
-
     [Microsoft.CodeAnalysis.Generator]
     public class MixinSourceGenerator : ISourceGenerator
     {
-
-
         private static readonly SymbolDisplayFormat SymbolDisplayFormat = new SymbolDisplayFormat(
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
@@ -47,86 +21,47 @@ namespace MixinSourceGenerator
 
         }
 
-
         public void Execute(GeneratorExecutionContext context)
         {
+            var allSymbols = context.Compilation.GetSymbolsWithName(_ => true);
+            var typeSymbols = allSymbols.OfType<INamedTypeSymbol>();
 
-            var assemblyInfo = new AssemblyInfo(context.Compilation);
+            var mixinData = new List<MixinData>();
+            foreach (var typeSymbol in typeSymbols)
+            {
+                var mixAttributes = 
+                    typeSymbol.GetAttributes().
+                    Where(__ => __.AttributeClass.ConstructedFrom.ToString() == "MixAttribute").
+                    Select(__ => __.ConstructorArguments[0].Value as INamedTypeSymbol).
+                    Where(__ => __ != null).
+                    Distinct<INamedTypeSymbol>(SymbolEqualityComparer.Default);
 
+                if (mixAttributes.Any() &&
+                    ((TypeDeclarationSyntax)typeSymbol.DeclaringSyntaxReferences.First().GetSyntax())
+                        .Modifiers.Any(__ => __.IsKind(SyntaxKind.PartialKeyword)))
+                {
+                    mixinData.Add(new MixinData
+                    {
+                        TargetType = typeSymbol,
+                        MixinTypes = mixAttributes
+                    });
+                }
+            }
 
             var result = new Scopes.Group() {
             "#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required"
 
             };
 
-
-            /*IEnumerable<AttributeSyntax> FilterAttributes(IEnumerable<AttributeSyntax> attributes) {
-                attributes = attributes.Where(x => x.Name.GetLastName().Identifier.ValueText == "Mix");
-                attributes = attributes.Where(x => x.Name is GenericNameSyntax);
-                return attributes;
-            }*/
-
-
-
-
-            var types = assemblyInfo.GlobalNamespace.GetTypesRecursively().ToArray();
-
-            var partialClasses = types.Where(x => x.IsPartial && (x.IsClass /*|| */));
-
-
-            foreach (var type in partialClasses)
+            foreach (var mixinRecord in mixinData)
             {
-
-                /*var mixAttributes = FilterAttributes(type.Attributes);
-
-                if (!mixAttributes.Any())
-                    continue;*/
-
-                SemanticModel aggregateTypeSemanticModel = context.Compilation.GetSemanticModel(type.Parts.First().SyntaxTree);
-
-                var aggregateTypeSymbol = aggregateTypeSemanticModel.GetDeclaredSymbol(type.Parts.First());
-
-                var attributes = aggregateTypeSymbol.GetAttributes();
-
-                var members = aggregateTypeSymbol.GetMembers();
-
-                foreach (var attribute in attributes)
+                foreach (var mixinType in mixinRecord.MixinTypes)
                 {
-
-                    //var fillName = typeof(MixAttribute).FullName;
-                    //var mixAttributeMetadata = context.Compilation.GetTypeByMetadataName(fillName);
-
-
-
-
-                    var attributeClass = attribute.AttributeClass;
-                    if (attributeClass.ConstructedFrom.ToString() != "MixAttribute")
-                    {
-                        continue;
-                    }
-
-                    var arguments = attribute.ConstructorArguments;
-                    if (arguments[0].Value is INamedTypeSymbol mixinTypeUsage)
-                    {
-
-                        result.Add(Mix(aggregateTypeSymbol, mixinTypeUsage));
-                    }
-
-                    //var mixinTypeUsage = attributeClass.TypeArguments.First() as INamedTypeSymbol;
-
-
-
-
+                    result.Add(Mix(mixinRecord.TargetType, mixinType));
                 }
-
             }
 
             context.AddSource("Generated.cs", result.ToString());
-
-            /*var outputPath = Path.Combine(outputDirectory, "Generated.cs");
-            File.WriteAllText(outputPath, result.ToString());*/
-
-
         }
 
 
@@ -179,9 +114,9 @@ namespace MixinSourceGenerator
             };
 
 
-            var publicInstanceMembers = mixinType.GetMembers()
-                .Where(x => !x.IsStatic)
-                .Where(x => x.DeclaredAccessibility == Accessibility.Public).ToArray();
+            //var publicInstanceMembers = mixinType.GetMembers()
+            //    .Where(x => !x.IsStatic)
+            //    .Where(x => x.DeclaredAccessibility == Accessibility.Public).ToArray();
 
 
 

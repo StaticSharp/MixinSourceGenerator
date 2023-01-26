@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixinSourceGenerator.Launch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixinSourceGenerator.TestProject", "TestProject\MixinSourceGenerator.TestProject.csproj", "{5618182A-1C3C-4F65-BD65-3C68871B69B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpSyntaxTreeInspector", "CSharpSyntaxTreeInspector\CSharpSyntaxTreeInspector.csproj", "{39E0F350-CF9C-47D5-9B65-4AA210E5A8D0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixinSourceGenerator", "Generator\MixinSourceGenerator.csproj", "{CB241EEB-9257-4784-A269-DAC76F910C7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixinSourceGenerator.Attributes", "Attributes\MixinSourceGenerator.Attributes.csproj", "{565AD084-68AF-460E-9B6E-DF94C5D96A30}"
@@ -27,10 +25,6 @@ Global
 		{5618182A-1C3C-4F65-BD65-3C68871B69B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5618182A-1C3C-4F65-BD65-3C68871B69B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5618182A-1C3C-4F65-BD65-3C68871B69B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39E0F350-CF9C-47D5-9B65-4AA210E5A8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39E0F350-CF9C-47D5-9B65-4AA210E5A8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39E0F350-CF9C-47D5-9B65-4AA210E5A8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39E0F350-CF9C-47D5-9B65-4AA210E5A8D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB241EEB-9257-4784-A269-DAC76F910C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB241EEB-9257-4784-A269-DAC76F910C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB241EEB-9257-4784-A269-DAC76F910C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
