@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main # Default release branch
-  workflow_dispatch
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-18.04
@@ -17,12 +17,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         #with:
           #source-url: https://nuget.pkg.github.com/<organization>/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+        #env:
+          #NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
-      - name: Build CsmlEngine and generate NuGet package
+      - name: Nuget pack
         run: |
-          cd CsmlEngine
-          dotnet pack -c Debug -p:PackageVersion=0.0.1-unstable${{github.run_number}} -o out
-      - name: Push generated CsmlEngine package to GitHub registry
-        run: dotnet nuget push ./CsmlEngine/out/*.nupkg --source https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --no-symbols true
+          echo {{github.run_number}}
