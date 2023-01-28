@@ -22,4 +22,4 @@ jobs:
 
       - name: Nuget pack
         run: |
-          echo {{github.run_number}}
+          echo ${{github.run_number}}
