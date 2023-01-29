@@ -22,7 +22,7 @@ jobs:
 
       - name: Nuget pack
         run: |
-          $version="0.1.$((${{github.run_number}}-2))"
+          version="0.1.$((${{github.run_number}}-2))"
           echo $version
       
       - name: Build and generate MixinSourceGenerator package
