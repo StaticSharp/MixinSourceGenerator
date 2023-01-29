@@ -33,7 +33,7 @@ jobs:
           dotnet pack ./Generator/MixinSourceGenerator.csproj \
           -c Release \
           -p:PackageVersion=${{env.package_version}} \
-          -o _out
+          -o _out \
           -p:ContinuousIntegrationBuild=true \
           -p:PublishRepositoryUrl=true \
           -p:EmbedUntrackedSources=true \
@@ -45,7 +45,7 @@ jobs:
           dotnet pack ./Attributes/MixinSourceGenerator.Attributes.csproj \
           -c Release \
           -p:PackageVersion=${{env.package_version}} \
-          -o _out
+          -o _out \
           -p:ContinuousIntegrationBuild=true \
           -p:PublishRepositoryUrl=true \
           -p:EmbedUntrackedSources=true \
