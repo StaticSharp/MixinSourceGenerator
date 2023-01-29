@@ -22,4 +22,10 @@ jobs:
 
       - name: Nuget pack
         run: |
-          echo ${{github.run_number}}
+          $version = "0.1."+(${{github.run_number}}-2)
+          echo $version
+      
+      - name: Build and generate MixinSourceGenerator package
+        run: |
+          echo "version="+$version
+          dotnet pack Generator/MixinSourceGenerator.csproj -c Release -p:PackageVersion=$version -o out
