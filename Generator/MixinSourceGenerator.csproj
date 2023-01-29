@@ -13,7 +13,7 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources> <!-- TODO: Do we really need sourcelink for generator?-->
         <DebugType>embedded</DebugType> 
-        <PackageVersion>0.1.1</PackageVersion>
+        <PackageVersion>0.1.1</PackageVersion> <!--overriden in CI-->
     </PropertyGroup>
 
     <ItemGroup>

@@ -12,13 +12,13 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<!-- TODO: Do we really need sourcelink for generator?-->
 		<DebugType>embedded</DebugType>
-		<PackageVersion>0.1.0</PackageVersion>
+		<PackageVersion>0.1.0</PackageVersion> <!--overriden in CI-->
 	</PropertyGroup>
 
 
 	<ItemGroup>
-		<None Include="..\README.md" Pack="true" PackagePath="\"/>
-		<None Include="..\LICENSE" Pack="true" PackagePath="\"/>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<!-- TODO: Do we really need sourcelink for generator?-->
 	</ItemGroup>

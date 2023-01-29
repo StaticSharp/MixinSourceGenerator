@@ -30,4 +30,24 @@ jobs:
       - name: Build and generate MixinSourceGenerator package
         run: |
           echo "version=${{env.package_version}}"
-          dotnet pack Generator/MixinSourceGenerator.csproj -c Release -p:PackageVersion=$version -o out
+          dotnet pack ./Generator/MixinSourceGenerator.csproj \
+          -c Release \
+          -p:PackageVersion=${{env.package_version}} \
+          -o _out
+          -p:ContinuousIntegrationBuild=true \
+          -p:PublishRepositoryUrl=true \
+          -p:EmbedUntrackedSources=true \
+          -p:DebugType=embedded
+          
+      - name: Build and generate MixinSourceGenerator.Attributes package
+        run: |
+          echo "version=${{env.package_version}}"
+          dotnet pack ./Attributes/MixinSourceGenerator.Attributes.csproj \
+          -c Release \
+          -p:PackageVersion=${{env.package_version}} \
+          -o _out
+          -p:ContinuousIntegrationBuild=true \
+          -p:PublishRepositoryUrl=true \
+          -p:EmbedUntrackedSources=true \
+          -p:DebugType=embedded
+
