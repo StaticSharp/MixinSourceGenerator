@@ -52,14 +52,14 @@ jobs:
       - name: Publish MixinSourceGenerator
         run: |
           dotnet nuget push \
-          ./_out MixinSourceGenerator.${{env.package_version}}.nupkg \
+          ./_out StaticSharp.MixinSourceGenerator.${{env.package_version}}.nupkg \
           -k ${{secrets.NUGET_KEY}} \
           -s https://api.nuget.org/v3/index.json
         
       - name: Publish MixinSourceGenerator.Attributes
         run: |
           dotnet nuget push \
-          ./_out MixinSourceGenerator.Attributes.${{env.package_version}}.nupkg \
+          ./_out StaticSharp.MixinSourceGenerator.Attributes.${{env.package_version}}.nupkg \
           -k ${{secrets.NUGET_KEY}} \
           -s https://api.nuget.org/v3/index.json
         
