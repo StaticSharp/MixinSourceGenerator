@@ -22,14 +22,13 @@ jobs:
 
       - name: Nuget pack
         run: |
-          export package_version="0.1.$((${{github.run_number}}-2))"
+          export package_version="0.1.$((${{github.run_number}}-8))"
           echo "Package Version = $package_version"
           echo "package_version=$package_version" >> $GITHUB_ENV
 
       
-      - name: Build and generate MixinSourceGenerator package
+      - name: Pack MixinSourceGenerator
         run: |
-          echo "version=${{env.package_version}}"
           dotnet pack ./Generator/MixinSourceGenerator.csproj \
           -c Release \
           -p:PackageVersion=${{env.package_version}} \
@@ -39,9 +38,8 @@ jobs:
           -p:EmbedUntrackedSources=true \
           -p:DebugType=embedded
           
-      - name: Build and generate MixinSourceGenerator.Attributes package
+      - name: Pack MixinSourceGenerator.Attributes
         run: |
-          echo "version=${{env.package_version}}"
           dotnet pack ./Attributes/MixinSourceGenerator.Attributes.csproj \
           -c Release \
           -p:PackageVersion=${{env.package_version}} \
@@ -50,4 +48,20 @@ jobs:
           -p:PublishRepositoryUrl=true \
           -p:EmbedUntrackedSources=true \
           -p:DebugType=embedded
+          
+      - name: Publish MixinSourceGenerator
+        run: |
+          dotnet nuget push \
+          ./_out MixinSourceGenerator.${{env.package_version}}.nupkg" \
+          -k ${{secrets.NUGET_KEY}} \
+          -s https://api.nuget.org/v3/index.json
+        
+      - name: Publish MixinSourceGenerator.Attributes
+        run: |
+          dotnet nuget push \
+          ./_out MixinSourceGenerator.Attributes.${{env.package_version}}.nupkg" \
+          -k ${{secrets.NUGET_KEY}} \
+          -s https://api.nuget.org/v3/index.json
+        
+
 
