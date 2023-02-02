@@ -14,12 +14,14 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources> <!-- TODO: Do we really need sourcelink for generator?-->
         <DebugType>embedded</DebugType> 
         <PackageVersion>0.1.1</PackageVersion> <!--overriden in CI-->
+		<PackageIcon>images\icon.png</PackageIcon>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\"/>
         <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" /> <!-- TODO: Do we really need sourcelink for generator?-->
+		<None Include="..\RoslynSourceGeneratorLauncher.png" Pack="true" Visible="false" PackagePath="images\icon.png" />
     </ItemGroup>
 
     <ItemGroup>

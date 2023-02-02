@@ -13,6 +13,7 @@
 		<!-- TODO: Do we really need sourcelink for generator?-->
 		<DebugType>embedded</DebugType>
 		<PackageVersion>0.1.0</PackageVersion> <!--overriden in CI-->
+		<PackageIcon>images\icon.png</PackageIcon>
 	</PropertyGroup>
 
 
@@ -21,6 +22,7 @@
 		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<!-- TODO: Do we really need sourcelink for generator?-->
+		<None Include="..\MixinSourceGenerator.Attributes.png" Pack="true" Visible="false" PackagePath="images\icon.png" />
 	</ItemGroup>
 
 </Project>
