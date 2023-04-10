@@ -14,6 +14,7 @@
 		<DebugType>embedded</DebugType>
 		<PackageVersion>0.1.0</PackageVersion> <!--overriden in CI-->
 		<PackageIcon>images\icon.png</PackageIcon>
+        <Authors>StaticSharp</Authors>
 	</PropertyGroup>
 
 

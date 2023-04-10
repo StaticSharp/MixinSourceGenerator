@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="StaticSharp.RoslynSourceGeneratorLauncher" Version="0.1.1" />
+        <PackageReference Include="StaticSharp.RoslynSourceGeneratorLauncher" Version="0.1.8" />
         <!--ProjectReference Include="..\..\RoslynSourceGeneratorLauncher\RoslynSourceGeneratorLauncher\RoslynSourceGeneratorLauncher.csproj" /-->
         <ProjectReference Include="..\Generator\MixinSourceGenerator.csproj" />
     </ItemGroup>
